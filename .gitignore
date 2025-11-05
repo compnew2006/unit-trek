@@ -28,10 +28,40 @@ dist-ssr
 .env.local
 .env.production
 .env.development
+.env.backup
 server/.env
 server/.env.local
 server/.env.production
+server/.env.backup
 
 # Build outputs
 build
 .cache
+
+# Server specific
+server/dist
+server/logs
+server/*.log
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Testing
+coverage
+.nyc_output
+
+# Temporary files
+*.tmp
+*.temp
+.cache
+
+# IDE
+*.swp
+*.swo
+*~
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
