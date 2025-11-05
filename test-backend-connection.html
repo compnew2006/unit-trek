@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backend Connection Test</title>
+</head>
+<body>
+    <h1>Backend Connection Test</h1>
+    <button onclick="testConnection()">Test Connection</button>
+    <pre id="result"></pre>
+
+    <script>
+        async function testConnection() {
+            const resultEl = document.getElementById('result');
+            resultEl.textContent = 'Testing...';
+            
+            try {
+                const response = await fetch('http://localhost:3001/api/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'test@test.com',
+                        password: 'wrongpassword'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.status === 401 && data.error === 'Invalid credentials') {
+                    resultEl.textContent = '✅ SUCCESS! Backend is working correctly!\n\n' +
+                        'Response: ' + JSON.stringify(data, null, 2) + '\n\n' +
+                        'The backend is responding correctly. The 401 error is expected with wrong credentials.';
+                } else {
+                    resultEl.textContent = '⚠️ Unexpected response:\n' + JSON.stringify(data, null, 2);
+                }
+            } catch (error) {
+                resultEl.textContent = '❌ ERROR: Cannot connect to backend\n\n' +
+                    'Error: ' + error.message + '\n\n' +
+                    'Make sure:\n' +
+                    '1. Backend server is running on port 3001\n' +
+                    '2. CORS is configured correctly\n' +
+                    '3. No firewall blocking the connection';
+            }
+        }
+    </script>
+</body>
+</html>

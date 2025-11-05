@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API URL Test</title>
+</head>
+<body>
+    <h1>API URL Test</h1>
+    <p id="result">Checking...</p>
+    <script type="module">
+        // Simulate Vite's import.meta.env
+        const API_URL = 'http://localhost:3001/api';
+        document.getElementById('result').innerHTML = 
+            `API URL: ${API_URL}<br>` +
+            `Full endpoint: ${API_URL}/auth/login<br><br>` +
+            `Testing connection...<br>`;
+        
+        fetch(`${API_URL}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: 'test',
+                password: 'test'
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('result').innerHTML += 
+                `<strong style="color: green;">✅ SUCCESS!</strong><br>` +
+                `Response: ${JSON.stringify(data, null, 2)}<br><br>` +
+                `The API is accessible from the browser!`;
+        })
+        .catch(err => {
+            document.getElementById('result').innerHTML += 
+                `<strong style="color: red;">❌ ERROR:</strong><br>` +
+                `${err.message}`;
+        });
+    </script>
+</body>
+</html>
