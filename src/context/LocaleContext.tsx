@@ -3,8 +3,8 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { STORAGE_KEYS } from '../constants';
 
-import enTranslations from '../../public/translations/en.json';
-import arTranslations from '../../public/translations/ar.json';
+import enTranslations from '../translations/en.json';
+import arTranslations from '../translations/ar.json';
 
 // Initialize i18n
 i18n.use(initReactI18next).init({
